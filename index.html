@@ -625,6 +625,101 @@
       .bar span{animation:none}
       .reveal{opacity:1;transform:none}
     }
+    /* =========================================================
+   MOVE37 — READABILITY PATCH
+   Keeps the original visual identity while improving
+   contrast, text clarity and content separation.
+   ========================================================= */
+
+/* ANALYSIS MODULES
+   Replace near-transparent cards with deep navy surfaces */
+.module {
+  background: rgba(8, 16, 24, 0.94);
+  border-color: rgba(255, 255, 255, 0.075);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+.module:hover {
+  background: rgba(10, 19, 29, 0.98);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Make explanatory copy easier to read */
+.module p {
+  color: #a2b1bd;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+/* ENGINEERING SECTION
+   Preserve atmosphere but stop background graphics
+   competing with the content */
+.engineering {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 16, 24, 0.94) 0%,
+      rgba(5, 10, 16, 0.97) 100%
+    );
+}
+
+/* Improve general secondary text contrast */
+.section-sub,
+.eng-desc,
+.rec-desc,
+.test-desc {
+  color: #9aabb8;
+}
+
+/* Give information-heavy cards a stronger surface */
+.eng-card,
+.rec-card,
+.test-card {
+  background: rgba(8, 16, 24, 0.93);
+  border-color: rgba(255, 255, 255, 0.075);
+}
+
+/* Slightly stronger hover without creating a bright
+   glassmorphism effect */
+.eng-card:hover,
+.rec-card:hover,
+.test-card:hover {
+  background: rgba(10, 19, 29, 0.97);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Keep technical background effects atmospheric rather
+   than visually competing with text */
+.matrix-bg,
+.grid-bg {
+  opacity: 0.45;
+}
+
+/* Improve paragraph readability throughout content sections */
+.analysis p,
+.engineering p,
+.recommendations p,
+.testing p {
+  text-rendering: optimizeLegibility;
+}
+
+/* Mobile: slightly stronger surfaces because the visual
+   layers overlap more on small screens */
+@media (max-width: 768px) {
+  .module,
+  .eng-card,
+  .rec-card,
+  .test-card {
+    background: rgba(8, 16, 24, 0.97);
+  }
+
+  .module p {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+}
   </style>
 </head>
 
