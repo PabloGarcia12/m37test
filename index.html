@@ -643,7 +643,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
         <label>Best time to contact you<input name="contact_time" placeholder="e.g. Weekdays, 10 AM–1 PM ET"></label>
         <label class="wide">Tell us about your project <span>*</span><textarea name="details" rows="5" placeholder="What are you building or changing? What would success look like?" required></textarea></label>
       </div>
-      <div class="inquiry-actions"><button class="btn btn-lime" type="submit">Prepare project inquiry →</button><small>Opens your email app with the details filled in. Automatic website submissions are coming next.</small></div>
+      <div class="inquiry-actions"><button class="btn btn-lime" type="submit">Send project inquiry →</button><small>Your inquiry is submitted securely. We’ll respond within one business day.</small></div>
     </form>
     <div class="form-msg" id="msg" role="status" aria-live="polite"></div>
     <div class="mail">or write to <a href="mailto:projects@move37studio.com">projects@move37studio.com</a></div>
@@ -680,15 +680,35 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
 
   setTimeout(function(){document.querySelectorAll('.bar span').forEach(function(b){b.style.width=b.dataset.w})},400);
 
-  document.getElementById('lead').addEventListener('submit',function(e){
+  document.getElementById('lead').addEventListener('submit',async function(e){
     e.preventDefault();
     var f=e.currentTarget,m=document.getElementById('msg');
     if(!f.reportValidity())return;
-    var d=new FormData(f), fields=[['Contact person','contact'],['Company','company'],['Email','email'],['Phone / WhatsApp','phone'],['Project type','project'],['Estimated budget','budget'],['Timeline','timeline'],['Best time to contact','contact_time'],['Project idea','details']];
-    var body=fields.map(function(x){return x[0]+': '+(d.get(x[1])||'Not provided')}).join('\n\n');
-    var subject='New project inquiry — '+d.get('company');
-    m.textContent='Your email application will open with the inquiry ready. Please press Send there to submit it.';
-    window.location.href='mailto:projects@move37studio.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    var button=f.querySelector('button[type="submit"]');
+    var originalText=button.textContent;
+    var data=Object.fromEntries(new FormData(f).entries());
+    button.disabled=true;
+    button.textContent='Sending inquiry…';
+    m.textContent='Sending your inquiry…';
+    try {
+      var response=await fetch('https://move37-contact-form.gradouno.workers.dev/',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(data)
+      });
+      var result=await response.json().catch(function(){return {}});
+      if(!response.ok || result.error || result.success===false){
+        throw new Error(result.error || 'Submission could not be completed.');
+      }
+      m.textContent='Thank you! Your project inquiry has been sent. We’ll reply within one business day.';
+      f.reset();
+    } catch(err){
+      console.error('Project inquiry failed:',err);
+      m.textContent='Sorry, your inquiry could not be sent. Please email projects@move37studio.com directly.';
+    } finally {
+      button.disabled=false;
+      button.textContent=originalText;
+    }
   });
 })();
 </script>
