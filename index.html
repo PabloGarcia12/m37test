@@ -666,6 +666,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
   </div>
 </footer>
 
+
 <script>
 (function(){
   var btn=document.querySelector('.menu-btn'),menu=document.getElementById('menu');
@@ -680,16 +681,35 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
 
   setTimeout(function(){document.querySelectorAll('.bar span').forEach(function(b){b.style.width=b.dataset.w})},400);
 
-  document.getElementById('lead').addEventListener('submit',async function(e){
+  // Anti-spam: create a hidden honeypot field
+  var leadForm=document.getElementById('lead');
+  var honeypot=document.createElement('input');
+  honeypot.type='text';
+  honeypot.name='website';
+  honeypot.tabIndex=-1;
+  honeypot.autocomplete='off';
+  honeypot.setAttribute('aria-hidden','true');
+  honeypot.style.cssText='position:absolute;left:-9999px;opacity:0;';
+  leadForm.appendChild(honeypot);
+
+  // Record when the visitor starts the form
+  var formStartedAt=Date.now();
+
+  leadForm.addEventListener('submit',async function(e){
     e.preventDefault();
     var f=e.currentTarget,m=document.getElementById('msg');
     if(!f.reportValidity())return;
     var button=f.querySelector('button[type="submit"]');
     var originalText=button.textContent;
     var data=Object.fromEntries(new FormData(f).entries());
+
+    // Include anti-spam information
+    data.startedAt=formStartedAt;
+
     button.disabled=true;
     button.textContent='Sending inquiry…';
     m.textContent='Sending your inquiry…';
+
     try {
       var response=await fetch('https://move37-contact-form.gradouno.workers.dev/',{
         method:'POST',
@@ -702,6 +722,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
       }
       m.textContent='Thank you! Your project inquiry has been sent. We’ll reply within one business day.';
       f.reset();
+      formStartedAt=Date.now();
     } catch(err){
       console.error('Project inquiry failed:',err);
       m.textContent='Sorry, your inquiry could not be sent. Please email projects@move37studio.com directly.';
@@ -712,5 +733,6 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
   });
 })();
 </script>
+
 </body>
 </html>
