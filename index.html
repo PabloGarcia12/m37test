@@ -25,7 +25,7 @@
       "@id": "https://move37studio.com/#org",
       "name": "Move 37 Studio",
       "url": "https://move37studio.com/",
-      "email": "hellomove37studio@gmail.com",
+      "email": "projects@move37studio.com",
       "description": "Digital studio for websites, WordPress development, accessibility, SEO, Generative Engine Optimization (GEO) and rebranding for nonprofits and creative organizations.",
       "areaServed": "United States",
       "knowsAbout": ["Web design","WordPress","WCAG 2.2 accessibility","Search engine optimization","Generative Engine Optimization","Brand strategy","Google Tag Manager"]
@@ -286,6 +286,21 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
 /* reveal */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
 .rv.in{opacity:1;transform:none}
+
+/* PROJECT INQUIRY — styled to match Move 37 */
+.inquiry-form{display:block;max-width:850px;margin:40px auto 0;text-align:left}
+.inquiry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px}
+.inquiry-grid label{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:700;color:#fff}
+.inquiry-grid label span{color:var(--lime)}
+.inquiry-grid .wide{grid-column:1/-1}
+.inquiry-form input,.inquiry-form select,.inquiry-form textarea{width:100%;min-width:0;flex:none;background:rgba(67,14,83,.78);border:1px solid rgba(255,255,255,.35);color:white;padding:15px 17px;border-radius:13px;font:inherit;font-size:16px;outline-offset:3px}
+.inquiry-form input::placeholder,.inquiry-form textarea::placeholder{color:rgba(255,255,255,.67)}
+.inquiry-form select option{color:#fff;background:#521466}
+.inquiry-form textarea{resize:vertical;min-height:135px}
+.inquiry-form :is(input,select,textarea):focus{border-color:var(--lime);outline:2px solid rgba(212,255,58,.25)}
+.inquiry-actions{display:flex;flex-direction:column;align-items:center;gap:13px;margin-top:28px;text-align:center}
+.inquiry-actions small{color:rgba(255,255,255,.83);font-size:13px;max-width:550px}
+@media(max-width:650px){.inquiry-grid{grid-template-columns:1fr}.inquiry-grid .wide{grid-column:auto}.inquiry-form{margin-top:30px}}
 </style>
 </head>
 <body>
@@ -616,13 +631,22 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
     <span class="eyebrow" style="justify-content:center">Now booking projects for early 2027</span>
     <h2 style="margin-top:22px">Let's make your next move <em class="s">the right one</em>.</h2>
     <p>Tell us about your project. We'll reply within one business day with next steps and a time for a 20-minute call.</p>
-    <form class="form" id="lead" novalidate>
-      <label for="em" class="skip" style="position:absolute;left:-999px">Your email</label>
-      <input id="em" type="email" placeholder="you@yourorg.org" autocomplete="email" required>
-      <button class="btn btn-lime" type="submit">Get in touch →</button>
+    <form class="form inquiry-form" id="lead">
+      <div class="inquiry-grid">
+        <label>Contact person <span>*</span><input name="contact" autocomplete="name" placeholder="Your full name" required></label>
+        <label>Company / organization <span>*</span><input name="company" autocomplete="organization" placeholder="Company name" required></label>
+        <label>Email address <span>*</span><input name="email" type="email" autocomplete="email" placeholder="you@company.com" required></label>
+        <label>Phone / WhatsApp<input name="phone" type="tel" autocomplete="tel" placeholder="Optional"></label>
+        <label>Project type <span>*</span><select name="project" required><option value="" disabled selected>Select your project</option><option>New website</option><option>Website redesign</option><option>Brand identity / rebranding</option><option>SEO / GEO / AI search</option><option>AI automation / digital experience</option><option>Multiple services</option><option>Other</option></select></label>
+        <label>Estimated budget<select name="budget"><option value="" selected>Not sure yet</option><option>Under $5,000</option><option>$5,000–$10,000</option><option>$10,000–$20,000</option><option>$20,000–$40,000</option><option>$40,000+</option></select></label>
+        <label>Project timeline <span>*</span><select name="timeline" required><option value="" disabled selected>When do you need it?</option><option>As soon as possible</option><option>Within 1–2 months</option><option>Within 3–4 months</option><option>Within 6 months</option><option>Flexible / exploring</option></select></label>
+        <label>Best time to contact you<input name="contact_time" placeholder="e.g. Weekdays, 10 AM–1 PM ET"></label>
+        <label class="wide">Tell us about your project <span>*</span><textarea name="details" rows="5" placeholder="What are you building or changing? What would success look like?" required></textarea></label>
+      </div>
+      <div class="inquiry-actions"><button class="btn btn-lime" type="submit">Prepare project inquiry →</button><small>Opens your email app with the details filled in. Automatic website submissions are coming next.</small></div>
     </form>
     <div class="form-msg" id="msg" role="status" aria-live="polite"></div>
-    <div class="mail">or write to <a href="mailto:hellomove37studio@gmail.com">hellomove37studio@gmail.com</a></div>
+    <div class="mail">or write to <a href="mailto:projects@move37studio.com">projects@move37studio.com</a></div>
   </div>
 </section>
 </main>
@@ -636,7 +660,7 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
       </div>
       <div><h4>Studio</h4><ul><li><a href="#why">Why us</a></li><li><a href="#work">Work</a></li><li><a href="#process">Process</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="#services">Web & WordPress</a></li><li><a href="#geo">GEO / AI search</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li>hellomove37studio@gmail.com</li><li><a href="https://move37studio.com">move37studio.com</a></li><li>Miami, FL · working nationwide</li></ul></div>
+      <div><h4>Contact</h4><ul><li>projects@move37studio.com</li><li><a href="https://move37studio.com">move37studio.com</a></li><li>Miami, FL · working nationwide</li></ul></div>
     </div>
     <div class="legal"><span>© 2026 Move 37 Studio</span><span>Built accessible. Built to be found.</span></div>
   </div>
@@ -658,9 +682,13 @@ footer{padding:56px 0 40px;border-top:1px solid var(--line);font-size:14px;color
 
   document.getElementById('lead').addEventListener('submit',function(e){
     e.preventDefault();
-    var v=document.getElementById('em').value.trim(),m=document.getElementById('msg');
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.style.color='#ff6b4a';m.textContent='Please enter a valid email address.';return}
-    m.style.color='';m.textContent='Thanks! To reach us now, email hellomove37studio@gmail.com.';
+    var f=e.currentTarget,m=document.getElementById('msg');
+    if(!f.reportValidity())return;
+    var d=new FormData(f), fields=[['Contact person','contact'],['Company','company'],['Email','email'],['Phone / WhatsApp','phone'],['Project type','project'],['Estimated budget','budget'],['Timeline','timeline'],['Best time to contact','contact_time'],['Project idea','details']];
+    var body=fields.map(function(x){return x[0]+': '+(d.get(x[1])||'Not provided')}).join('\n\n');
+    var subject='New project inquiry — '+d.get('company');
+    m.textContent='Your email application will open with the inquiry ready. Please press Send there to submit it.';
+    window.location.href='mailto:projects@move37studio.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
   });
 })();
 </script>
